@@ -32,6 +32,7 @@ jobportal/
 | Database  | MongoDB + Mongoose      |
 | Auth      | JWT + bcryptjs          |
 | Styling   | Pure CSS (no frameworks)|
+| DevOps    | Docker (MongoDB)        |
 
 ---
 
@@ -39,23 +40,49 @@ jobportal/
 
 ### Prerequisites
 - Node.js v16+
-- MongoDB running locally (`mongod`)
+- Docker & Docker Desktop (for MongoDB)
 
-### 1. Backend
+### 1. Start MongoDB with Docker
+
+```bash
+# Start MongoDB container on port 27017
+docker run -d -p 27017:27017 --name mongodb mongo:latest
+
+# Verify it's running
+docker ps
+```
+
+To stop MongoDB later:
+```bash
+docker stop mongodb
+docker rm mongodb
+```
+
+### 2. Backend Setup
 
 ```bash
 cd backend
 npm install
-# Edit .env → set your MONGO_URI and JWT_SECRET
-npm run dev       # starts on http://localhost:5000
+
+# The .env file is already configured for local MongoDB:
+# MONGO_URI=mongodb://localhost:27017/jobportal
+
+# Start with nodemon (auto-reload)
+npx nodemon server.js
+# OR
+npm run dev
+
+# Server runs on http://localhost:5000
 ```
 
-### 2. Frontend
+### 3. Frontend Setup
 
 ```bash
 cd frontend
 npm install
-npm start         # starts on http://localhost:3000
+npm start
+
+# Frontend runs on http://localhost:3000
 ```
 
 ---
